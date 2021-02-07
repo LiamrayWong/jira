@@ -18,16 +18,29 @@ export const cleanObject = (object) => {
 export const useMount = (callback) => {
   useEffect(() => {
     callback();
-  }, [callback]);
+  });
 };
 
+// export const useDebounce = (value, delay) => {
+//     let timerId = null;
+//     let result = {...value}
+//     return ()=>{
+//       if(timerId){
+//         clearTimeout(timerId)
+//         result = null
+//       }
+//       timerId = setTimeout(()=>{
+//         return result
+//       },delay)
+//     }
+// };
 
 export const useDebounce = (value, delay) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
   //每次value变化执行一次
   useEffect(() => {
     //每次在value变化以后，设置一个定时器
-    const timerId = setTimeout(() => setDebouncedValue(value), value);
+    const timerId = setTimeout(() => setDebouncedValue(value), delay);
     //清除上一次的timerId
     return () => clearTimeout(timerId);
   }, [value, delay]);

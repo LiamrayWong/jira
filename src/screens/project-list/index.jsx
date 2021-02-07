@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { SearchPanel } from "./SearchPanel";
 import { List } from "./List";
 import { cleanObject } from "../../utils";
-import {useMount,useDebounce} from "../../utils";
+import {useDebounce} from "../../utils";
 
 import qs from "qs";
 
@@ -31,14 +31,14 @@ export const ProjectListScreen = () => {
   }, [debouncedParam]);
 
   //初始化负责人列表
-  useMount(() => {
+  useEffect(() => {
     fetch(`${apiUrl}/managers`).then(async response => {
       if (response.ok) {
         //保存负责人列表的数据
         setManagers(await response.json());
       }
     });
-  });
+  },[]);
 
 
   return <div>
@@ -48,17 +48,5 @@ export const ProjectListScreen = () => {
 };
 
 
-// export const useDebounce = (value, delay) => {
-//     let timerId = null;
-//     let result = {...value}
-//     return ()=>{
-//       if(timerId){
-//         clearTimeout(timerId)
-//         result = null
-//       }
-//       timerId = setTimeout(()=>{
-//         return result
-//       },delay)
-//     }
-// };
+
 
