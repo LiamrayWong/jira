@@ -15,10 +15,11 @@ export const cleanObject = (object) => {
   return result;
 };
 
+//初始化数据
 export const useMount = (callback) => {
-  useEffect(() => {
-    callback();
-  });
+  useEffect(()=>{
+    callback()
+  },[])
 };
 
 // export const useDebounce = (value, delay) => {

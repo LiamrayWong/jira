@@ -4,7 +4,7 @@ export const List = ({ managers, list }) => {
   return <table>
     <thead>
     <tr>
-      <th>部门</th>
+      <th>项目</th>
       <th>负责人</th>
     </tr>
     </thead>
