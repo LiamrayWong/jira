@@ -16,7 +16,7 @@ export const ProjectListScreen = () => {
   //从managers中找到personId，读取db.json中的name属性
   const [managers, setManagers] = useState([]);
   const [list, setList] = useState([]);
-  const debouncedParam = useDebounce(param, 500);
+  const debouncedParam = useDebounce(param, 200);
 
 
   //param变化时，页面请求项目列表的接口

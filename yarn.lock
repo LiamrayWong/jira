@@ -1930,6 +1930,11 @@
   resolved "https://registry.npm.taobao.org/@types/q/download/@types/q-1.5.4.tgz?cache=0&sync_timestamp=1605055244860&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fq%2Fdownload%2F%40types%2Fq-1.5.4.tgz#15925414e0ad2cd765bfef58842f7e26a7accb24"
   integrity sha1-FZJUFOCtLNdlv+9YhC9+JqesyyQ=
 
+"@types/qs@^6.9.5":
+  version "6.9.5"
+  resolved "https://registry.npm.taobao.org/@types/qs/download/@types/qs-6.9.5.tgz?cache=0&sync_timestamp=1605055213283&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fqs%2Fdownload%2F%40types%2Fqs-6.9.5.tgz#434711bdd49eb5ee69d90c1d67c354a9a8ecb18b"
+  integrity sha1-Q0cRvdSete5p2QwdZ8NUqajssYs=
+
 "@types/react-dom@^17.0.0":
   version "17.0.0"
   resolved "https://registry.npm.taobao.org/@types/react-dom/download/@types/react-dom-17.0.0.tgz#b3b691eb956c4b3401777ee67b900cb28415d95a"
