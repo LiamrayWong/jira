@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const isFalsy = (value:unknown) => value === 0 ? false : !value;
+export const isFalsy = (value: unknown) => value === 0 ? false : !value;
 
 
 //在函数中改变传入的对象会污染这个对象，可能引起bug
@@ -38,7 +38,7 @@ export const useMount = (callback: () => void) => {
 //     }
 // };
 
-export const useDebounce = <V>(value:V, delay?:number) => {
+export const useDebounce = <V>(value: V, delay?: number) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
   //每次value变化执行一次
   useEffect(() => {
@@ -50,4 +50,5 @@ export const useDebounce = <V>(value:V, delay?:number) => {
   //value 设置为unknown，类型推断返回值也是unknown
   return debouncedValue;
 };
+
 
