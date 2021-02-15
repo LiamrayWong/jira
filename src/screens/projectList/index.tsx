@@ -13,8 +13,8 @@ export const ProjectListScreen = () => {
     name: "",
     personId: ""
   });
-  //从managers中找到personId，读取db.json中的name属性
-  const [managers, setManagers] = useState([]);
+  //从users中找到personId，读取db.json中的name属性
+  const [users, setUsers] = useState([]);
   const [list, setList] = useState([]);
   const debouncedParam = useDebounce(param, 200);
 
@@ -31,10 +31,10 @@ export const ProjectListScreen = () => {
 
   //初始化负责人列表
   useMount(() => {
-    fetch(`${apiUrl}/managers`).then(async response => {
+    fetch(`${apiUrl}/users`).then(async response => {
       if (response.ok) {
         //保存负责人列表的数据
-        setManagers(await response.json());
+        setUsers(await response.json());
       }
     });
   });
@@ -42,8 +42,8 @@ export const ProjectListScreen = () => {
 
 
   return <div>
-    <SearchPanel managers={managers} param={param} setParam={setParam} />
-    <List managers={managers} list={list} />
+    <SearchPanel users={users} param={param} setParam={setParam} />
+    <List users={users} list={list} />
   </div>;
 };
 

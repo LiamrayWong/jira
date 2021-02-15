@@ -1,5 +1,5 @@
 import React from "react";
-import { Manager } from "./SearchPanel";
+import { User } from "./SearchPanel";
 
 interface Project{
   id: string;
@@ -12,10 +12,10 @@ interface Project{
 
 interface ListProps {
   list:Project[];
-  managers: Manager[];
+  users: User[];
 }
 
-export const List = ({ managers, list }:ListProps) => {
+export const List = ({ users, list }:ListProps) => {
   return <table>
     <thead>
     <tr>
@@ -27,7 +27,7 @@ export const List = ({ managers, list }:ListProps) => {
     {
       list.map(project => <tr key={project.id}>
         <td>{project.name}</td>
-        <td>{managers.find(manager => manager.id === project.personId)?.name || "未知"}</td>
+        <td>{users.find(user => user.id === project.personId)?.name || "未知"}</td>
       </tr>)
     }
     </tbody>
