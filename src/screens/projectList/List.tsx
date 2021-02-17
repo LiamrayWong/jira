@@ -1,36 +1,38 @@
 import React from "react";
 import { User } from "./SearchPanel";
+import { Table } from "antd";
 
-interface Project{
+interface Project {
   id: string;
-  name:string;
+  name: string;
   personId: string;
-  pin:boolean;
+  pin: boolean;
   organization: string;
 }
 
 
 interface ListProps {
-  list:Project[];
+  list: Project[];
   users: User[];
 }
 
-export const List = ({ users, list }:ListProps) => {
-  return <table>
-    <thead>
-    <tr>
-      <th>项目</th>
-      <th>负责人</th>
-    </tr>
-    </thead>
-    <tbody>
-    {
-      list.map(project => <tr key={project.id}>
-        <td>{project.name}</td>
-        <td>{users.find(user => user.id === project.personId)?.name || "未知"}</td>
-      </tr>)
-    }
-    </tbody>
-  </table>;
+export const List = ({ users, list }: ListProps) => {
+
+  return (
+    <Table pagination={false} columns={[
+      {
+        title: "项目名称",
+        dataIndex: "name",
+        sorter: (a, b) => a.name.localeCompare(b.name)
+      },
+      {
+        title: "负责人",
+        render(value, project) {
+          return (<span>{users.find(user => user.id === project.personId)?.name || "未知"}</span>);
+        }
+      }
+    ]} dataSource={list}>
+    </Table>
+  );
 };
 
