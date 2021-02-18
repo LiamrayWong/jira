@@ -1,14 +1,14 @@
 import React from "react";
 import { ProjectListScreen } from "./screens/projectList";
 import { useAuth } from "./context/authContext";
-import { Button } from "antd";
+import { LongButton } from "./unauthenticatedApp";
 
 export const AuthenticatedApp = () => {
   const {logout} = useAuth()
   return (
-  <div>
-    <Button onClick={logout}>登出</Button>
-    <ProjectListScreen/>
+    <div>
+      <LongButton onClick={logout}>登出</LongButton>
+      <ProjectListScreen />
     </div>
-  )
+  );
 };
