@@ -5,7 +5,6 @@ import { cleanObject, useDebounce, useMount } from "../../utils";
 import { useHttp } from "../../utils/http";
 import styled from "@emotion/styled";
 
-const apiUrl = process.env.REACT_APP_API_URL;
 
 
 export const ProjectListScreen = () => {
@@ -22,6 +21,7 @@ export const ProjectListScreen = () => {
   //param变化时，页面请求项目列表的接口
   useEffect(() => {
     client("projects", { data: cleanObject(debouncedParam) }).then(setList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedParam]);
 
   //初始化负责人列表

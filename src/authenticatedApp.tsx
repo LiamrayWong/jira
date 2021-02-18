@@ -4,10 +4,10 @@ import { useAuth } from "./context/authContext";
 import { ReactComponent as SoftwareLogo } from "assets/software-logo.svg";
 import styled from "@emotion/styled";
 import { Raw } from "./components/lib";
-import { Dropdown, Menu } from "antd";
+import { Button, Dropdown, Menu } from "antd";
 
 export const AuthenticatedApp = () => {
-  const { logout,user } = useAuth();
+  const { logout, user } = useAuth();
   return (
     <div>
       <Header between={true}>
@@ -19,12 +19,10 @@ export const AuthenticatedApp = () => {
         <HeaderRight>
           <Dropdown overlay={<Menu>
             <Menu.Item key={"logout"}>
-              <a onClick={logout}>登出</a>
+              <Button onClick={logout} type={"link"}>登出</Button>
             </Menu.Item>
           </Menu>}>
-            <a onClick={event => event.preventDefault()}>
-              Hi, {user?.name}
-            </a>
+            <Button onClick={event => event.preventDefault()} type={"link"}>Hi, {user?.name}</Button>
           </Dropdown>
         </HeaderRight>
       </Header>
@@ -38,7 +36,7 @@ export const AuthenticatedApp = () => {
 
 const Header = styled(Raw)`
   padding: 3.2rem;
-  box-shadow: 0 0 5px 0 rgba(0,0,0,0.1);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
   z-index: 1;
 `;
 
