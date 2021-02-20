@@ -7498,10 +7498,10 @@ jira-dev-tool@^1.6.13:
     react-query "^2.26.3"
     react-query-devtools "^2.6.3"
 
-jira-dev-tool@^1.6.55:
-  version "1.6.55"
-  resolved "https://registry.npm.taobao.org/jira-dev-tool/download/jira-dev-tool-1.6.55.tgz#f3425cb171ce7b7b69d3fd833caba0defa412904"
-  integrity sha1-80JcsXHOe3tp0/2DPKug3vpBKQQ=
+jira-dev-tool@^1.6.59:
+  version "1.6.59"
+  resolved "https://registry.npm.taobao.org/jira-dev-tool/download/jira-dev-tool-1.6.59.tgz#67a98dba9fc9c976d004f3bea1b0349437a0da17"
+  integrity sha1-Z6mNup/JyXbQBPO+obA0lDeg2hc=
   dependencies:
     antd "^4.9.1"
     jira-dev-tool "^1.6.13"
