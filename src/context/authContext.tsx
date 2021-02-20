@@ -1,12 +1,14 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode } from "react";
 import * as auth from "authProvider";
 import { User } from "../screens/projectList/SearchPanel";
 import { http } from "../utils/http";
 import { useMount } from "../utils";
+import { useAsync } from "../utils/useAsync";
+import { FullPageErrorFallback, FullPageLoading } from "../components/lib";
 
 interface AuthForm {
-  username: string,
-  password: string,
+  username: string;
+  password: string;
 }
 
 const boostrapUser = async () => {
@@ -19,27 +21,50 @@ const boostrapUser = async () => {
   return user;
 };
 
-const AuthContext = React.createContext<{
-  user: User | null,
-  login: (form: AuthForm) => Promise<void>,
-  register: (form: AuthForm) => Promise<void>,
-  logout: () => Promise<void>
-} | undefined>(undefined);
+const AuthContext = React.createContext<
+  | {
+      user: User | null;
+      login: (form: AuthForm) => Promise<void>;
+      register: (form: AuthForm) => Promise<void>;
+      logout: () => Promise<void>;
+    }
+  | undefined
+>(undefined);
 AuthContext.displayName = "AuthContext";
 
-
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const {
+    data: user,
+    error,
+    isLoading,
+    isIdle,
+    isError,
+    run,
+    setData: setUser,
+  } = useAsync<User | null>();
   //point free
   const login = (form: AuthForm) => auth.login(form).then(setUser);
   const register = (form: AuthForm) => auth.register(form).then(setUser);
   const logout = () => auth.logout().then(() => setUser(null));
 
   useMount(() => {
-    boostrapUser().then(setUser);
+    run(boostrapUser());
   });
 
-  return <AuthContext.Provider children={children} value={{ user, login, register, logout }} />;
+  if (isIdle || isLoading) {
+    return <FullPageLoading />;
+  }
+
+  if (isError) {
+    return <FullPageErrorFallback error={error} />;
+  }
+
+  return (
+    <AuthContext.Provider
+      children={children}
+      value={{ user, login, register, logout }}
+    />
+  );
 };
 
 export const useAuth = () => {
