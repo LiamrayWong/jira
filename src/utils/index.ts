@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
 
@@ -54,18 +54,21 @@ export const useDebounce = <V>(value: V, delay?: number) => {
 
 export const useDocumentTitle = (
   title: string,
-  keppOnUnmount: boolean = true
+  keepOnUnmount: boolean = true
 ) => {
-  const oldTitle = document.title;
+  //const oldTitle = document.title
+  const oldTitle = useRef(document.title).current;
+
   useEffect(() => {
     document.title = title;
   }, [title]);
 
+  //useEffect没有传入依赖，只在页面加载的时候执行一次，因此读取的 `oldTitle` 的值是页面加载时的值；
   useEffect(() => {
     return () => {
-      if (!keppOnUnmount) {
+      if (!keepOnUnmount) {
         document.title = oldTitle;
       }
     };
-  });
+  }, [keepOnUnmount, oldTitle]);
 };
