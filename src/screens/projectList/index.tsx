@@ -1,19 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { SearchPanel } from "./SearchPanel";
 import { List } from "./List";
-import { useDebounce } from "../../utils";
+import { useDebounce, useDocumentTitle } from "../../utils";
 import styled from "@emotion/styled";
 import { useProjects } from "../../utils/useProjects";
 import { Typography } from "antd";
 import { useUsers } from "../../utils/useUsers";
-import { useUrlQueryParam } from "../../utils/url";
+import { useProjectsSearchParams } from "./utile";
 
 export const ProjectListScreen = () => {
-  //从users中找到personId，读取db.json中的name属性
-  const [keys] = useState<("name" | "personId")[]>(["name", "personId"]);
-  const [param, setParam] = useUrlQueryParam(keys);
-  const debouncedParam = useDebounce(param, 500);
-  const { isLoading, error, data: list } = useProjects(debouncedParam);
+  useDocumentTitle("项目列表", false);
+  const [param, setParam] = useProjectsSearchParams();
+  const { isLoading, error, data: list } = useProjects(useDebounce(param, 500));
   const { data: users } = useUsers();
 
   return (
@@ -28,7 +26,7 @@ export const ProjectListScreen = () => {
   );
 };
 
-ProjectListScreen.whyDidYouRender = false;
+ProjectListScreen.whyDidYouRender = true;
 
 const Container = styled.div`
   padding: 3.2rem;
