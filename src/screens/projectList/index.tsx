@@ -3,7 +3,7 @@ import { SearchPanel } from "./SearchPanel";
 import { List } from "./List";
 import { useDebounce, useDocumentTitle } from "../../utils";
 import styled from "@emotion/styled";
-import { useProjects } from "../../utils/useProjects";
+import { useProjects } from "../../utils/projects";
 import { Typography } from "antd";
 import { useUsers } from "../../utils/useUsers";
 import { useProjectsSearchParams } from "./utile";
@@ -11,7 +11,9 @@ import { useProjectsSearchParams } from "./utile";
 export const ProjectListScreen = () => {
   useDocumentTitle("项目列表", false);
   const [param, setParam] = useProjectsSearchParams();
-  const { isLoading, error, data: list } = useProjects(useDebounce(param, 500));
+  const { isLoading, error, data: list, retry } = useProjects(
+    useDebounce(param, 500)
+  );
   const { data: users } = useUsers();
 
   return (
@@ -21,7 +23,12 @@ export const ProjectListScreen = () => {
       {error ? (
         <Typography.Text type={"danger"}>{error.message}</Typography.Text>
       ) : null}
-      <List loading={isLoading} users={users || []} dataSource={list || []} />
+      <List
+        refresh={retry}
+        loading={isLoading}
+        users={users || []}
+        dataSource={list || []}
+      />
     </Container>
   );
 };
