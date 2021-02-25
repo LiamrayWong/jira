@@ -1,6 +1,6 @@
 import { useAsync } from "./useAsync";
 import { Project } from "../screens/projectList/List";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { cleanObject } from "./index";
 import { useHttp } from "./http";
 
@@ -8,16 +8,17 @@ export const useProjects = (param?: Partial<Project>) => {
   const client = useHttp();
   const { run, ...result } = useAsync<Project[]>();
 
-  const fetchProjects = () =>
-    client("projects", { data: cleanObject(param || {}) });
+  const fetchProjects = useCallback(
+    () => client("projects", { data: cleanObject(param || {}) }),
+    [param, client]
+  );
 
   //param变化时，页面请求项目列表的接口
   useEffect(() => {
     run(fetchProjects(), {
       retry: fetchProjects,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [param]);
+  }, [param, run, fetchProjects]);
   return result;
 };
 
