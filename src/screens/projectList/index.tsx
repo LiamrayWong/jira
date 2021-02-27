@@ -6,11 +6,13 @@ import styled from "@emotion/styled";
 import { useProjects } from "../../utils/projects";
 import { Typography } from "antd";
 import { useUsers } from "../../utils/useUsers";
-import { useProjectsSearchParams } from "./utile";
-import { Row } from "components/lib";
+import { useProjectModal, useProjectsSearchParams } from "./utile";
+import { ButtonNoPadding, Row } from "components/lib";
 
-export const ProjectListScreen = (props: { projectButton: JSX.Element }) => {
+export const ProjectListScreen = () => {
   useDocumentTitle("项目列表", false);
+  const { open } = useProjectModal();
+
   const [param, setParam] = useProjectsSearchParams();
   const { isLoading, error, data: list, retry } = useProjects(
     useDebounce(param, 500)
@@ -21,14 +23,15 @@ export const ProjectListScreen = (props: { projectButton: JSX.Element }) => {
     <Container>
       <Row between={true}>
         <h1>项目列表</h1>
-        {props.projectButton}
+        <ButtonNoPadding onClick={open} type={"link"}>
+          创建项目
+        </ButtonNoPadding>
       </Row>
       <SearchPanel users={users || []} param={param} setParam={setParam} />
       {error ? (
         <Typography.Text type={"danger"}>{error.message}</Typography.Text>
       ) : null}
       <List
-        projectButton={props.projectButton}
         refresh={retry}
         loading={isLoading}
         users={users || []}
@@ -40,6 +43,6 @@ export const ProjectListScreen = (props: { projectButton: JSX.Element }) => {
 
 ProjectListScreen.whyDidYouRender = false;
 
-const Container = styled.div`
+export const Container = styled.div`
   padding: 3.2rem;
 `;
